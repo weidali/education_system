@@ -7,15 +7,18 @@ use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Cache;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): ResourceCollection
+    public function index()
     {
-        return StudentResource::collection(Student::all());
+        return StudentResource::collection(Cache::remember('students', 60 * 60 * 24, function () {
+            return Student::all();
+        }));
     }
 
     /**
