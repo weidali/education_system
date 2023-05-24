@@ -32,13 +32,14 @@ class StudentControllerTest extends TestCase
     }
 
     /** @test */
-    public function test_2_get_the_student()
+    public function test_2_get_the_student_with_classroom_field()
     {
         $student = Student::inRandomOrder()->first();
         $response = $this->get('api/v1/students/' . $student->id);
         $expected = [
             'name',
             'created',
+            'classroom',
         ];
 
         $response->assertStatus(200);

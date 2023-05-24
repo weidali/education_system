@@ -14,12 +14,13 @@ class StudentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             'name' => $this->name,
             'created' => $this->created_at->format('d-m-Y'),
-            $this->mergeWhen($request->student, [
-                'name' => $this->name,
-            ]),
+            'classroom' => $this->when($request->routeIs('students.show'), function () {
+                return $this->classroom->title ?? 'None';
+            }),
         ];
     }
 }
