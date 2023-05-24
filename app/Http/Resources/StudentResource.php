@@ -17,6 +17,9 @@ class StudentResource extends JsonResource
         return [
             'name' => $this->name,
             'created' => $this->created_at->format('d-m-Y'),
+            $this->mergeWhen($request->student, [
+                'name' => $this->name,
+            ]),
         ];
     }
 }

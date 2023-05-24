@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Student;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -26,6 +27,20 @@ class StudentControllerTest extends TestCase
                 'created',
             ],
         ];
+        $response->assertStatus(200);
+        $response->assertJsonStructure($expected);
+    }
+
+    /** @test */
+    public function test_2_get_the_student()
+    {
+        $student = Student::inRandomOrder()->first();
+        $response = $this->get('api/v1/students/' . $student->id);
+        $expected = [
+            'name',
+            'created',
+        ];
+
         $response->assertStatus(200);
         $response->assertJsonStructure($expected);
     }

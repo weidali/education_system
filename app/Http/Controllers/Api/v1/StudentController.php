@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 
 class StudentController extends Controller
@@ -14,7 +15,7 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResource
     {
         return StudentResource::collection(Cache::remember('students', 60 * 60 * 24, function () {
             return Student::all();
@@ -32,9 +33,9 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student): StudentResource
     {
-        //
+        return new StudentResource($student);
     }
 
     /**
