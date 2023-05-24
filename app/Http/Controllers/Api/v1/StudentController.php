@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 
@@ -35,7 +34,7 @@ class StudentController extends Controller
      */
     public function show(Student $student): StudentResource
     {
-        return new StudentResource($student);
+        return StudentResource::make($student);
     }
 
     /**

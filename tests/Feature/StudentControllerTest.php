@@ -20,7 +20,7 @@ class StudentControllerTest extends TestCase
     /** @test */
     public function test_1_get_list_of_all_students()
     {
-        $response = $this->get('api/v1/students');
+        $response = $this->getJson('api/v1/students');
         $expected = [
             '*' => [
                 'name',
@@ -35,7 +35,7 @@ class StudentControllerTest extends TestCase
     public function test_2_get_the_student_with_classroom_field()
     {
         $student = Student::inRandomOrder()->first();
-        $response = $this->get('api/v1/students/' . $student->id);
+        $response = $this->getJson('api/v1/students/' . $student->id);
         $expected = [
             'name',
             'created',

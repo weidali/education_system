@@ -19,7 +19,7 @@ class StudentResource extends JsonResource
             'name' => $this->name,
             'created' => $this->created_at->format('d-m-Y'),
             'classroom' => $this->when($request->routeIs('students.show'), function () {
-                return $this->classroom->title ?? 'None';
+                return $this->classroom->title ?? null;
             }),
         ];
     }
