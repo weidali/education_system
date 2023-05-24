@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Lecture extends Model
 {
@@ -13,4 +14,11 @@ class Lecture extends Model
         'theme',
         'description',
     ];
+
+    public function classrooms(): BelongsToMany
+    {
+        return $this->belongsToMany(Classroom::class)
+            ->using(ClassroomLecture::class)
+            ->withPivot('started_at');
+    }
 }
