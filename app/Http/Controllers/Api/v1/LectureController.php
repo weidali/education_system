@@ -19,16 +19,16 @@ class LectureController extends Controller
         }));
     }
 
-    public function store(StoreLectureRequest $request)
+    public function store(StoreLectureRequest $request): LectureResource
     {
         $lecture = Lecture::create($request->validated());
 
         return LectureResource::make($lecture->fresh());
     }
 
-    public function show(string $id)
+    public function show(Lecture $lecture): LectureResource
     {
-        //
+        return LectureResource::make($lecture);
     }
 
     public function update(Request $request, string $id)
