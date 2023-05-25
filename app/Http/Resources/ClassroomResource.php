@@ -17,6 +17,12 @@ class ClassroomResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'lectures' => $this->when(
+                $request->routeIs('classrooms.show'),
+                function () {
+                    return LectureResource::collection($this->lectures) ?? null;
+                }
+            ),
             'created' => $this->created_at->format('d-m-Y'),
         ];
     }
