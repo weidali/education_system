@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreClassroomRequest;
 use App\Http\Resources\ClassroomResource;
 use App\Models\Classroom;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class ClassroomController extends Controller
@@ -51,8 +53,12 @@ class ClassroomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Classroom $classroom): JsonResponse
     {
-        //
+        $classroomQueryBuilder = $classroom->students();
+        $classroomQueryBuilder->update(['classroom_id' => null]);
+        $classroom->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

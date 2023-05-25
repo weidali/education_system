@@ -60,7 +60,7 @@ class ClassroomControllerTest extends TestCase
     }
 
     /** @test */
-    public function test_3_1_store_the_student_with_validation()
+    public function test_3_1_store_the_classroom_with_validation()
     {
         $empty_credentials = [];
         $response = $this->postJson('api/v1/classrooms/', $empty_credentials);
@@ -77,6 +77,15 @@ class ClassroomControllerTest extends TestCase
             ],
         ];
         $response->assertJsonStructure($expected);
+    }
+
+    /** @test */
+    public function test_5_destroy_the_classroom()
+    {
+        $classroom = $this->getRandomClassroom();
+
+        $response = $this->deleteJson('api/v1/classrooms/' . $classroom->id);
+        $response->assertStatus(204);
     }
 
     public function getRandomClassroom(): Classroom
