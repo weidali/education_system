@@ -60,6 +60,28 @@ php artisan serve
 </details>
 
 <details>
+ <summary><code>GET</code> <code><b>/api/v1/students-list</b></code></summary>
+
+##### Query Params
+
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | page   |  nullable | int             | The page number      |
+
+##### Responses
+> | http code     | content-type                | response                                                            |
+> |---------------|-----------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`          | `[{"name": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
+
+
+##### Example cURL
+> ```bash
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/students-list?page=1
+> ```
+
+</details>
+
+<details>
  <summary><code>GET</code> <code><b>/api/v1/students/{student}</b></code></summary>
 
 ##### Path Variables
@@ -142,6 +164,28 @@ php artisan serve
 </details>
 
 <details>
+ <summary><code>GET</code> <code><b>/api/v1/classrooms-list</b></code></summary>
+
+##### Query Params
+
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | page   |  nullable | int             | The page number      |
+
+##### Responses
+> | http code     | content-type                | response                                                            |
+> |---------------|-----------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`          | `[{"title": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
+
+
+##### Example cURL
+> ```bash
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/classrooms-list?page=1
+> ```
+
+</details>
+
+<details>
  <summary><code>GET</code> <code><b>/api/v1/classrooms/{classroom}</b></code></summary>
 
 ##### Path Variables
@@ -196,6 +240,109 @@ php artisan serve
 ##### Example cURL
 > ```bash
 >  curl -X DELETE -H "Content-Type: application/json" http://localhost:8000/api/v1/students/{id}
+> ```
+
+</details>
+
+### Lecture
+<details>
+ <summary><code>GET</code> <code><b>/api/v1/lectures</b></code></summary>
+
+##### Parameters
+
+> None
+
+##### Responses
+> | http code     | content-type                | response                                                            |
+> |---------------|-----------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`          | `[{"theme": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
+
+
+##### Example cURL
+> ```bash
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/lectures
+> ```
+
+</details>
+
+<details>
+ <summary><code>GET</code> <code><b>/api/v1/lectures-list</b></code></summary>
+
+##### Query Params
+
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | page   |  nullable | int             | The page number      |
+
+##### Responses
+> | http code     | content-type                | response                                                            |
+> |---------------|-----------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`          | `[{"theme": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
+
+
+##### Example cURL
+> ```bash
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/lectures-list?page=1
+> ```
+
+</details>
+
+<details>
+ <summary><code>GET</code> <code><b>/api/v1/lectures/{id}</b></code></summary>
+
+##### Path Variables
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | id   |  required | int             | The specific lecture numeric id      |
+
+##### Responses
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`                | `{"title": "...", "created":"DD-MM-YYYY"}`                                                  |
+> | `404`         | `application/json`                | `{"code":"404","message":"Not found"}`                            |
+
+##### Example cURL
+> ```bash
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/lectures/{id}
+> ```
+
+</details>
+
+<details>
+ <summary><code>POST</code> <code><b>/api/v1/lectures</b></code></summary>
+
+##### Parameters
+
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | theme   |  required | string, unique, max:100            | The specific lecture string theme      |
+> | description   |  nullable | string, max:255            | The specific lecture string description      |
+
+##### Responses
+> | http code     | content-type                | response                                                            |
+> |---------------|-----------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`          | `[{"theme": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
+> | `422`         | `application/json`          | `{"error": "...", `                 |
+
+</details>
+
+<details>
+ <summary><code>DELETE</code> <code><b>/api/v1/lectures/{id}</b></code></summary>
+
+##### Path Variables
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | id   |  required | int             | The specific lecture numeric id      |
+
+##### Responses
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `204`         | `application/json`                | `null`                                                              |
+> | `404`         | `application/json`                | `{"code":"404","message":"Not found"}`                              |
+
+##### Example cURL
+> ```bash
+>  curl -X DELETE -H "Content-Type: application/json" http://localhost:8000/api/v1/lectures/{id}
 > ```
 
 </details>
