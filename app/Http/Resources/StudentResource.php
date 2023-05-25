@@ -16,10 +16,14 @@ class StudentResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'email' => $this->email,
             'created' => $this->created_at->format('d-m-Y'),
-            'classroom' => $this->when($request->routeIs('students.show'), function () {
-                return $this->classroom->title ?? null;
-            }),
+            'classroom' => $this->when(
+                $request->routeIs('students.show') || $request->routeIs('students.store'),
+                function () {
+                    return $this->classroom->title ?? null;
+                }
+            ),
         ];
     }
 }
