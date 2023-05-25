@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Cache;
 
 class ClassroomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): JsonResource
     {
         return ClassroomResource::collection(Cache::remember('classrooms', 60 * 60 * 24, function () {
@@ -24,9 +21,6 @@ class ClassroomController extends Controller
         }));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreClassroomRequest $request): ClassroomResource
     {
         $classroom = Classroom::create($request->validated());
@@ -34,25 +28,16 @@ class ClassroomController extends Controller
         return ClassroomResource::make($classroom->fresh());
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Classroom $classroom): ClassroomResource
     {
         return ClassroomResource::make($classroom);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Classroom $classroom): JsonResponse
     {
         $studentsQueryBuilder = $classroom->students();
