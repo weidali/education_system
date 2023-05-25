@@ -32,6 +32,20 @@ class ClassroomControllerTest extends TestCase
     }
 
     /** @test */
+    public function test_2_get_the_classroom()
+    {
+        $classroom = $this->getRandomClassroom();
+        $response = $this->getJson('api/v1/classrooms/' . $classroom->id);
+        $expected = [
+            'title',
+            'created',
+        ];
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure($expected);
+    }
+
+    /** @test */
     public function test_3_store_the_classroom()
     {
         $credentials = $this->makeTestingClassroomCredentials();

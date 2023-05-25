@@ -35,9 +35,9 @@ class ClassroomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Classroom $classroom): ClassroomResource
     {
-        //
+        return ClassroomResource::make($classroom);
     }
 
     /**
