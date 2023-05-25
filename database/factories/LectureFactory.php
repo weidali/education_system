@@ -17,7 +17,7 @@ class LectureFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'theme' => $this->faker->sentence(3),
         ];
     }
 }
