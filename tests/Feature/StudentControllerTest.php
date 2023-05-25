@@ -26,7 +26,29 @@ class StudentControllerTest extends TestCase
         $expected = [
             '*' => [
                 'name',
+                'email',
                 'created',
+            ],
+        ];
+        $response->assertStatus(200);
+        $response->assertJsonStructure($expected);
+    }
+
+    /** @test */
+    public function test_1_1_get_paginated_list_of_students()
+    {
+        $response = $this->getJson('api/v1/students-list');
+        $expected = [
+            'data' => [
+                '*' => [
+                    'name',
+                    'email',
+                    'created',
+                ],
+            ],
+            'links' => [
+                'first',
+                'last',
             ],
         ];
         $response->assertStatus(200);

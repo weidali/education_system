@@ -21,6 +21,12 @@ class LectureController extends Controller
         }));
     }
 
+    public function getLectures(): JsonResource
+    {
+        $perPage = 10;
+        return LectureResource::collection(Lecture::paginate($perPage));
+    }
+
     public function store(StoreLectureRequest $request): LectureResource
     {
         $lecture = Lecture::create($request->validated());

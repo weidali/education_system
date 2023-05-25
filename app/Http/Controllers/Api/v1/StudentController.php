@@ -21,6 +21,12 @@ class StudentController extends Controller
         }));
     }
 
+    public function getStudents(): JsonResource
+    {
+        $perPage = 10;
+        return StudentResource::collection(Student::paginate($perPage));
+    }
+
     public function store(StoreStudentRequest $request)
     {
         $student = Student::create($request->validated());

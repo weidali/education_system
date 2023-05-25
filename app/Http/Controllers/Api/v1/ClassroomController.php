@@ -20,6 +20,11 @@ class ClassroomController extends Controller
             return Classroom::all();
         }));
     }
+    public function getClassrooms(): JsonResource
+    {
+        $perPage = 10;
+        return ClassroomResource::collection(Classroom::paginate($perPage));
+    }
 
     public function store(StoreClassroomRequest $request): ClassroomResource
     {

@@ -31,6 +31,26 @@ class LectureControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure($expected);
     }
+    /** @test */
+    public function test_1_1_get_paginated_list_of_lectures()
+    {
+        $response = $this->getJson('api/v1/lectures-list');
+        $expected = [
+            'data' => [
+                '*' => [
+                    'theme',
+                    'description',
+                    'created',
+                ],
+            ],
+            'links' => [
+                'first',
+                'last',
+            ],
+        ];
+        $response->assertStatus(200);
+        $response->assertJsonStructure($expected);
+    }
 
     /** @test */
     public function test_2_get_the_lecture()

@@ -32,6 +32,26 @@ class ClassroomControllerTest extends TestCase
     }
 
     /** @test */
+    public function test_1_1_get_paginated_list_of_classrooms()
+    {
+        $response = $this->getJson('api/v1/classrooms-list');
+        $expected = [
+            'data' => [
+                '*' => [
+                    'title',
+                    'created',
+                ],
+            ],
+            'links' => [
+                'first',
+                'last',
+            ],
+        ];
+        $response->assertStatus(200);
+        $response->assertJsonStructure($expected);
+    }
+
+    /** @test */
     public function test_2_get_the_classroom()
     {
         $classroom = $this->getRandomClassroom();
