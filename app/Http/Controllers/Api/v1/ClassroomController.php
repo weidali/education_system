@@ -55,8 +55,11 @@ class ClassroomController extends Controller
      */
     public function destroy(Classroom $classroom): JsonResponse
     {
-        $classroomQueryBuilder = $classroom->students();
-        $classroomQueryBuilder->update(['classroom_id' => null]);
+        $studentsQueryBuilder = $classroom->students();
+        $studentsQueryBuilder->update(['classroom_id' => null]);
+
+        $classroom->lectures()->detach([$classroom->id]);
+
         $classroom->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);

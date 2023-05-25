@@ -8,6 +8,7 @@ cd education_system
 cp .env.example .env
 touch database/database.sql
 composer install --optimize-autoloader --no-dev
+php artisan migrate:fresh --seed
 ```
 
 Get into the project root, open `.env` file and update configuration details (e.g. db connection settings)

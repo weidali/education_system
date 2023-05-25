@@ -95,7 +95,7 @@ class StudentControllerTest extends TestCase
 
     public function makeTestingStudentCredentials(string $email = null): array
     {
-        $classroom = $this->getRandomStudent();
+        $classroom = $this->getRandomClassroom();
         $full_name = $this->faker->firstName . ' ' . $this->faker->lastName;
 
         return [
@@ -103,6 +103,15 @@ class StudentControllerTest extends TestCase
             'email' => $email ?? $this->faker->email,
             'classroom_id' => Arr::random([null, $classroom->id]),
         ];
+    }
+
+    public function getRandomClassroom(): Classroom
+    {
+        $classroom = Classroom::inRandomOrder()->first();
+        if (!$classroom) {
+            $classroom = Classroom::factory()->create();
+        }
+        return $classroom;
     }
 
     public function getRandomStudent(): Student
