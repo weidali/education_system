@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreLectureRequest;
 use App\Http\Resources\LectureResource;
 use App\Models\Lecture;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class LectureController extends Controller
@@ -36,8 +38,11 @@ class LectureController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(Lecture $lecture): JsonResponse
     {
-        //
+        $lecture->classrooms()->detach([$lecture->id]);
+        $lecture->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

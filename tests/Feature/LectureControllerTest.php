@@ -82,6 +82,15 @@ class LectureControllerTest extends TestCase
         $response->assertJsonStructure($expected);
     }
 
+    /** @test */
+    public function test_5_destroy_the_lecture()
+    {
+        $lecture = $this->getRandomLecture();
+
+        $response = $this->deleteJson('api/v1/lectures/' . $lecture->id);
+        $response->assertStatus(204);
+    }
+
     public function getRandomLecture(): Lecture
     {
         $lecture = Lecture::inRandomOrder()->first();
