@@ -24,7 +24,31 @@ Lecture
 > | http code     | content-type                      | response                                                            |
 > |---------------|-----------------------------------|---------------------------------------------------------------------|
 > | `200`         | `application/json`                | `[{"name": "...", "created":"DD-MM-YYYY"}, ... {}]`                                                  |
-> | `400`         | `application/json`                | `{"code":"400","message":"Bad Request"}`                            |
+
+
+##### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/students
+> ```
+
+</details>
+
+<details>
+ <summary><code>GET</code> <code><b>/api/v1/students/{student}</b></code></summary>
+
+##### Path Variables
+
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | student   |  required | int             | The specific student numeric id      |
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`                | `{"name": "...", "created":"DD-MM-YYYY"}`                                                  |
+> | `404`         | `application/json`                | `{"code":"404","message":"Not found"}`                            |
 
 ##### Example cURL
 
