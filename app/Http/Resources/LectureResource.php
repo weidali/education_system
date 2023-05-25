@@ -16,7 +16,7 @@ class LectureResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'theme' => $this->theme,
             'description' => $this->description,
             'created' => $this->created_at->format('d-m-Y'),
         ];

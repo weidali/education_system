@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\StoreLectureRequest;
 use App\Http\Resources\LectureResource;
 use App\Models\Lecture;
 use Illuminate\Http\Request;
@@ -18,9 +19,11 @@ class LectureController extends Controller
         }));
     }
 
-    public function store(Request $request)
+    public function store(StoreLectureRequest $request)
     {
-        //
+        $lecture = Lecture::create($request->validated());
+
+        return LectureResource::make($lecture->fresh());
     }
 
     public function show(string $id)
