@@ -18,6 +18,7 @@ class LectureFactory extends Factory
     {
         return [
             'theme' => $this->faker->sentence(3),
+            'description' => $this->faker->sentence(5),
         ];
     }
 }
