@@ -52,9 +52,7 @@ class StudentControllerTest extends TestCase
     public function test_3_store_the_student()
     {
         $credentials = $this->makeTestingStudentCredentials();
-
         $response = $this->postJson('api/v1/students/', $credentials);
-
         $expected = [
             'name',
             'email',
@@ -95,6 +93,18 @@ class StudentControllerTest extends TestCase
         $response->assertStatus(204);
     }
 
+    public function makeTestingStudentCredentials(string $email = null): array
+    {
+        $classroom = $this->getRandomStudent();
+        $full_name = $this->faker->firstName . ' ' . $this->faker->lastName;
+
+        return [
+            'name' => $full_name,
+            'email' => $email ?? $this->faker->email,
+            'classroom_id' => Arr::random([null, $classroom->id]),
+        ];
+    }
+
     public function getRandomStudent(): Student
     {
         $student = Student::inRandomOrder()->first();
@@ -102,21 +112,5 @@ class StudentControllerTest extends TestCase
             $student = Student::factory()->create();
         }
         return $student;
-    }
-
-    public function makeTestingStudentCredentials(string $email = null): array
-    {
-        $classroom = Classroom::inRandomOrder()->first();
-        if (!$classroom) {
-            $classroom = Classroom::factory()->create();
-        }
-        $classroom_id = $classroom ? $classroom->id : null;
-
-        $full_name = $this->faker->firstName . ' ' . $this->faker->lastName;
-        return [
-            'name' => $full_name,
-            'email' => $email ?? $this->faker->email,
-            'classroom_id' => Arr::random([null, $classroom_id]),
-        ];
     }
 }
