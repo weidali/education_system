@@ -73,10 +73,7 @@ class StudentControllerTest extends TestCase
         $response = $this->postJson('api/v1/students/', $empty_credentials);
         $response->assertStatus(422);
 
-        $student = Student::inRandomOrder()->first();
-        if (!$student) {
-            $student = Student::factory()->create();
-        }
+        $student = $this->getRandomStudent();
         $exist_email_credentials = $this->makeTestingStudentCredentials($student->email);
 
         $response = $this->postJson('api/v1/students/', $exist_email_credentials);
@@ -87,6 +84,24 @@ class StudentControllerTest extends TestCase
             ],
         ];
         $response->assertJsonStructure($expected);
+    }
+
+    /** @test */
+    public function test_5_destroy_the_student()
+    {
+        $student = $this->getRandomStudent();
+
+        $response = $this->deleteJson('api/v1/students/' . $student->id);
+        $response->assertStatus(204);
+    }
+
+    public function getRandomStudent(): Student
+    {
+        $student = Student::inRandomOrder()->first();
+        if (!$student) {
+            $student = Student::factory()->create();
+        }
+        return $student;
     }
 
     public function makeTestingStudentCredentials(string $email = null): array
