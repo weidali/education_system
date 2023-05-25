@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Classroom;
 use App\Models\Student;
+use App\Observers\ClassroomObserver;
 use App\Observers\StudentObserver;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -25,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
 
         Student::observe(StudentObserver::class);
+        Classroom::observe(ClassroomObserver::class);
     }
 }

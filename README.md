@@ -2,7 +2,6 @@
 
 ## Installation
 
-Git clone
 ```bash
 git clone git@github.com:weidali/education_system.git
 cd education_system
@@ -30,7 +29,7 @@ php artisan serve
   - email
 
 - Classroom
-  - name
+  - title
 
 - Lecture
   - theme
@@ -97,14 +96,90 @@ php artisan serve
 > | `200`         | `application/json`          | `[{"name": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
 > | `422`         | `application/json`          | `{"error": "...", `                 |
 
-
-##### Example cURL
-> None
-
 </details>
 
 <details>
  <summary><code>DELETE</code> <code><b>/api/v1/students/{student}</b></code></summary>
+
+##### Path Variables
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | student   |  required | int             | The specific student numeric id      |
+
+##### Responses
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `204`         | `application/json`                | `null`                                                              |
+> | `404`         | `application/json`                | `{"code":"404","message":"Not found"}`                              |
+
+##### Example cURL
+> ```bash
+>  curl -X DELETE -H "Content-Type: application/json" http://localhost:8000/api/v1/students/{id}
+> ```
+
+</details>
+
+### Classroom
+<details>
+ <summary><code>GET</code> <code><b>/api/v1/classrooms</b></code></summary>
+
+##### Parameters
+
+> None
+
+##### Responses
+> | http code     | content-type                | response                                                            |
+> |---------------|-----------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`          | `[{"title": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
+
+
+##### Example cURL
+> ```bash
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/classrooms
+> ```
+
+</details>
+
+<details>
+ <summary><code>GET</code> <code><b>/api/v1/classrooms/{classroom}</b></code></summary>
+
+##### Path Variables
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | classroom   |  required | int             | The specific classroom numeric id      |
+
+##### Responses
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`                | `{"title": "...", "created":"DD-MM-YYYY"}`                                                  |
+> | `404`         | `application/json`                | `{"code":"404","message":"Not found"}`                            |
+
+##### Example cURL
+> ```bash
+>  curl -X GET -H "Content-Type: application/json" http://localhost:8000/api/v1/classrooms/{id}
+> ```
+
+</details>
+
+<details>
+ <summary><code>POST</code> <code><b>/api/v1/classrooms</b></code></summary>
+
+##### Parameters
+
+> | key       |  type     | data type       | description                          |
+> |-----------|-----------|-----------------|--------------------------------------|
+> | title   |  required | string, unique, max:100            | The specific classroom string title      |
+
+##### Responses
+> | http code     | content-type                | response                                                            |
+> |---------------|-----------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`          | `[{"title": "...", "created":"DD-MM-YYYY"}, ... {}]`                 |
+> | `422`         | `application/json`          | `{"error": "...", `                 |
+
+</details>
+
+<details>
+ <summary><code>DELETE</code> <code><b>/api/v1/classrooms/{classroom}</b></code></summary>
 
 ##### Path Variables
 > | key       |  type     | data type       | description                          |
