@@ -14,7 +14,6 @@ class StudentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
         return [
             'name' => $this->name,
             'created' => $this->created_at->format('d-m-Y'),
