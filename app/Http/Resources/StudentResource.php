@@ -19,6 +19,7 @@ class StudentResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'created' => $this->created_at->format('d-m-Y'),
+            'attended_lectures' => LectureResource::collection($this->classroom->attended_lectures),
             'classroom' => $this->when(
                 $request->routeIs('students.show') || $request->routeIs('students.store'),
                 function () {

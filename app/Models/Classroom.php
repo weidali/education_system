@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -24,6 +25,14 @@ class Classroom extends Model
     {
         return $this->belongsToMany(Lecture::class)
             ->using(ClassroomLecture::class)
-            ->withPivot('started_at');
+            ->withPivot(['started_at']);
+    }
+
+    public function attended_lectures(): BelongsToMany
+    {
+        return $this->belongsToMany(Lecture::class)
+            ->using(ClassroomLecture::class)
+            ->withPivot(['started_at'])
+            ->wherePivot('started_at', '<', Carbon::now()->toDateString());
     }
 }
